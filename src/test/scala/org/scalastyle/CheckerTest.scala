@@ -30,7 +30,9 @@ class CheckerTest {
 """
     val config = ScalastyleConfiguration("a name", false, List.empty)
     val sourceSpec: FileSpec = new SourceSpec("somename.scala", source)
-    val result = scalastyleChecker.checkFiles(config, Seq(sourceSpec))
+    val thing = FileNameAndRules(sourceSpec, config)
+    val filesAndRules = Seq(thing)
+    val result = scalastyleChecker.completeAllFileChecks(filesAndRules)
 
     assertEquals(4, result.size)
     assertEquals(new StartWork[SourceSpec](), result(0))
